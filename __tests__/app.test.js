@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../lib/app');
+const { app } = require('../lib/app');
 
 describe('app routes', () => {
     it('has a home route that asks what up', () => {
