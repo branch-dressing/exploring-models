@@ -89,7 +89,7 @@ describe('app routes', () => {
             });
     });
 
-    it.skip('has a route to get all books', () => {
+    it('has a route to get all books', () => {
         return request(app)
             .get(`/`)
             .then(res => {
@@ -113,13 +113,13 @@ describe('app routes', () => {
                     pages: 989,
                     _id: expect.any(String),
                     __v: 0
-                // },
-                // {
-                //     _id: expect.any(String),
-                //     __v: 0,
-                //     title: 'House of Leaves',
-                //     author: 'Mark Z. Danielewski',
-                //     pages: 709
+                },
+                {
+                    _id: expect.any(String),
+                    __v: 0,
+                    title: 'House of Leaves',
+                    author: 'Mark Z. Danielewski',
+                    pages: 709
                 }]);
             });
     });
@@ -127,7 +127,7 @@ describe('app routes', () => {
     // it has a route that finds and delets.
     it('has a route that finds and deletes a book', () => {
         return request(app)
-            .get(`/${deletedBook._id}`)
+            .get(`/book/${deletedBook._id}`)
             .then(res => {
                 expect(res.body).toEqual({
                     _id: expect.any(String),
