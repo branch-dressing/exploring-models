@@ -7,24 +7,30 @@ const Book = require('../lib/models/Book');
 describe('app routes', () => {
     let book;
     let updatedBook;
+    let fakeBook;
 
     beforeAll(async() => {
         book = await Book.create({
             title: 'Dune',
             author: 'Frank Herbert',
             pages: 500
-            
         });
 
-        updatedBook = await Book.findByIdAndUpdate(book._id, {
-            title: 'Dune',
-            author: 'Frank Herbert',
-            pages: 600
+        fakeBook = await Book.create({
+            title: 'Princess Bride',
+            author: 'S. Morgenstern',
+            pages: 2563
+        });
+
+        updatedBook = await Book.findByIdAndUpdate(fakeBook._id, {
+            title: 'Princess Bride',
+            author: 'William Goldman',
+            pages: 392
         });
     });
 
     afterAll(async() => {
-        mongoose.connection.collections['books'].drop(function(err) {
+        mongoose.connection.collections['books'].drop(function() {
             console.log('collection dropped');
         });
     });
@@ -67,9 +73,11 @@ describe('app routes', () => {
             .get(`/book/${updatedBook._id}`)
             .then(res => {
                 expect(res.body).toEqual({
-                    title: 'Dune',
-                    author: 'Frank Herbert',
-                    pages: 600
+                    _id: expect.any(String),
+                    __v: 0,
+                    title: 'Princess Bride',
+                    author: 'William Goldman',
+                    pages: 392
                 });
             });
     });
