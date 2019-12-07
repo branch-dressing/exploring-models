@@ -82,5 +82,33 @@ describe('app routes', () => {
             });
     });
 
+    it('has a route to get all books', () => {
+        return request(app)
+            .get(`/`)
+            .then(res => {
+                expect(res.body).toEqual([{
+                    _id: expect.any(String),
+                    __v: 0,
+                    title: 'Dune',
+                    author: 'Frank Herbert',
+                    pages: 500
+                },
+                {
+                    _id: expect.any(String),
+                    __v: 0,
+                    title: 'Princess Bride',
+                    author: 'William Goldman',
+                    pages: 392
+                },
+                {
+                    title: '2666',
+                    author: 'Roberto Bolaño',
+                    pages: 989,
+                    _id: expect.any(String),
+                    __v: 0
+                }]);
+            });
+    });
+
     //it has a route that finds and delets.
 });
