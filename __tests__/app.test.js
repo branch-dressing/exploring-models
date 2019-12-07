@@ -26,4 +26,23 @@ describe('app routes', () => {
                 });
             });
     });
+
+    it('has a route that posts a book', () => {
+        return request(app)
+            .post(`/book`)
+            .send({
+                title: '2666',
+                author: 'Roberto Bolaño',
+                pages: 989
+            })
+            .then(res => {
+                expect(res.body).toEqual({
+                    title: '2666',
+                    author: 'Roberto Bolaño',
+                    pages: 989,
+                    _id: expect.any(String),
+                    __v: 0
+                });
+            });
+    });
 });
