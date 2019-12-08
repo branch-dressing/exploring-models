@@ -3,5 +3,3 @@ node_js:
   - "9"
 script:
   - npm test
-services: mongodb
-env: MONGODB_URI=mongodb://localhost:27017/exploring-models
