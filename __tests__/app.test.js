@@ -41,6 +41,7 @@ describe('app routes', () => {
         mongoose.connection.collections['books'].drop(function() {
             console.log('collection dropped');
         });
+        mongoose.connection.close();
         done();
     });
 
