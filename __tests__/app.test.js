@@ -36,11 +36,11 @@ describe('app routes', () => {
         });
     });
 
-    // afterAll(async() => {
-    //     mongoose.connection.collections['books'].drop(function() {
-    //         console.log('collection dropped');
-    //     });
-    // });
+    afterAll(async() => {
+        mongoose.connection.collections['books'].drop(function() {
+            console.log('collection dropped');
+        });
+    });
 
     it('has a route that gets book by id', () => {
         return request(app)
@@ -66,11 +66,11 @@ describe('app routes', () => {
             })
             .then(res => {
                 expect(res.body).toEqual({
+                    _id: expect.any(String),
+                    __v: 0,
                     title: '2666',
                     author: 'Roberto Bolaño',
                     pages: 989,
-                    _id: expect.any(String),
-                    __v: 0
                 });
             });
     });
@@ -89,43 +89,16 @@ describe('app routes', () => {
             });
     });
 
-    it.skip('has a route to get all books', () => {
+    it('has a route to get all books', () => {
         return request(app)
             .get(`/`)
             .then(res => {
-                expect(res.body).toEqual([{
-                    _id: expect.any(String),
-                    __v: 0,
-                    title: 'Dune',
-                    author: 'Frank Herbert',
-                    pages: 500
-                },
-                {
-                    _id: expect.any(String),
-                    __v: 0,
-                    title: 'Princess Bride',
-                    author: 'William Goldman',
-                    pages: 392
-                },
-                {
-                    _id: expect.any(String),
-                    __v: 0,
-                    title: '2666',
-                    author: 'Roberto Bolaño',
-                    pages: 989,
-                },
-                {
-                    _id: expect.any(String),
-                    __v: 0,
-                    title: 'House of Leaves',
-                    author: 'Mark Z. Danielewski',
-                    pages: 709
-                }
-                ]);
+                expect(res.body
+                    .map(book => book.title))
+                    .toEqual(['Dune', 'Princess Bride', 'House of Leaves', '2666']);
             });
     });
 
-    // it has a route that finds and delets.
     it('has a route that finds and deletes a book', () => {
         return request(app)
             .del(`/${deletedBook._id}`)
