@@ -4,4 +4,4 @@ node_js:
 script:
   - npm test
 services: mongodb
-env: MONGODB_URI=mongodb://localhost:27017/travis
+env: MONGODB_URI=mongodb://localhost:27017/exploring-models
