@@ -10,7 +10,7 @@ describe('app routes', () => {
     let fakeBook;
     let deletedBook;
 
-    beforeAll(async() => {
+    beforeAll(async(done) => {
         book = await Book.create({
             title: 'Dune',
             author: 'Frank Herbert',
@@ -34,12 +34,14 @@ describe('app routes', () => {
             author: 'Mark Z. Danielewski',
             pages: 709
         });
+        done();
     });
 
-    afterAll(async() => {
+    afterAll(async(done) => {
         mongoose.connection.collections['books'].drop(function() {
             console.log('collection dropped');
         });
+        done();
     });
 
     it('has a route that gets book by id', () => {
